@@ -15,17 +15,18 @@ def views():
     """
     return jsonify({"status": "OK"})
 
+
 @app_views.route('/stats')
 def stats():
     """
     Returns no of objects in each class
     """
     model_list = {"amenities": "Amenity",
-                   "cities": "City",
-                   "places": "Place",
-                   "reviews": "Review",
-                   "states": "State",
-                   "users": "User"}
+                  "cities": "City",
+                  "places": "Place",
+                  "reviews": "Review",
+                  "states": "State",
+                  "users": "User"}
     model_dict = {}
     try:
         for k, v in model_list.items():

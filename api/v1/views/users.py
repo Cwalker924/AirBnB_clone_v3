@@ -25,6 +25,7 @@ def get_users(users_id=None):
         abort(404)
     return (jsonify(spec.user.to_json()))
 
+
 @app_views.route('/users', methods=["POST"], strict_slashes=False)
 def post_users():
     """
@@ -45,6 +46,7 @@ def post_users():
     storage.save()
     return (jsonify(add_user.to_json()), 201)
 
+
 @app_views.route('/users/<users_id>/', methods=["PUT"], strict_slashes=False)
 def put_users(users_id):
     """
@@ -63,7 +65,9 @@ def put_users(users_id):
     user.save()
     return (jsonify(user.to_json), 200)
 
-@app_views.route('/users/<users_id>/', methods=["DELETE"], strict_slashes=False)
+
+@app_views.route('/users/<users_id>/', methods=["DELETE"],
+                 strict_slashes=False)
 def delete_users(users_id):
     """
     Deletes users

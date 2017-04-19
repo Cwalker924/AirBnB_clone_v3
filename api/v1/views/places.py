@@ -10,7 +10,8 @@ from models import Place
 from models import storage
 
 
-@app_views.route('/cities/<cities_id>/places', methods=["GET"], strict_slashes=False)
+@app_views.route('/cities/<cities_id>/places', methods=["GET"],
+                 strict_slashes=False)
 def get_places_city(cities_id=None):
     """
     Retrieves all place obj in a given city
@@ -27,6 +28,7 @@ def get_places_city(cities_id=None):
             list_city.append(i)
     return (jsonify(list_city))
 
+
 @app_views.route('/places/<places_id>', methods=["GET"], strict_slashes=False)
 def get_places(places_id=None):
     """
@@ -37,7 +39,9 @@ def get_places(places_id=None):
         abort(404)
     return (jsonify(place.to_json()))
 
-@app_views.route('/cities/<city_id>/places', methods=["POST"], strict_slashes=False)
+
+@app_views.route('/cities/<city_id>/places', methods=["POST"],
+                 strict_slashes=False)
 def post_places(city_id):
     """
     Post to places
@@ -63,6 +67,7 @@ def post_places(city_id):
     place_tojson = storage.get("Place", add_place.id).to_json()
     return (jsonify(place_tojson), 201)
 
+
 @app_views.route('/places/<places_id>', methods=["PUT"], strict_slashes=False)
 def put_place(places_id):
     """
@@ -83,7 +88,9 @@ def put_place(places_id):
     places_tojson = places.to_json()
     return (jsonify(places_tojson), 200)
 
-@app_views.route('/places/<places_id>', methods=["DELETE"], strict_slashes=False)
+
+@app_views.route('/places/<places_id>', methods=["DELETE"],
+                 strict_slashes=False)
 def delete_place(places_id):
     """
     Deletes place

@@ -28,6 +28,7 @@ def get_review_places(places_id=None):
             list_review.append(review)
     return (jsonify(list_review))
 
+
 @app_views.route('/reviews/<review_id>', methods=["GET"],
                  strict_slashes=False)
 def get_review(review_id=None):
@@ -39,6 +40,7 @@ def get_review(review_id=None):
         abort(404)
     review_tojson = review.to_json()
     return (jsonify(review_tojson))
+
 
 @app_views.route('/places/<places_id>/reviews', methods=["POST"],
                  strict_slashes=False)
@@ -66,6 +68,7 @@ def post_review(places_id):
     review_tojson = storage.get("Review", add_review.id).to_json()
     return (jsonify(review_tojson), 201)
 
+
 @app_views.route('/reviews/<review_id>', methods=["PUT"], strict_slashes=False)
 def put_review(review_id):
     """
@@ -83,7 +86,8 @@ def put_review(review_id):
             setattr(review, k, v)
     review.save()
     review_tojson = review.to_json()
-    return (jsonify(review_tojson), 2--)
+    return (jsonify(review_tojson), 200)
+
 
 @app_views.route('/reviews/<review_id>', methods=["DELETE"],
                  strict_slashes=False)

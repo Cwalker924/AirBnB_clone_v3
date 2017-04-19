@@ -19,6 +19,7 @@ def get_states():
     states = [v.to_json() for k, v in states.items()]
     return (jsonify(states))
 
+
 @app_views.route('/states/<states_id>', methods=["GET"], strict_slashes=False)
 def get_state(states_id):
     """"
@@ -30,6 +31,7 @@ def get_state(states_id):
     if state is None:
         abort(404)
     return (jsonify(state.to_json()))
+
 
 @app_views.route('/states/<states_id>', methods=["POST"], strict_slashes=False)
 def post_states():
@@ -45,6 +47,7 @@ def post_states():
     add_state.save()
     state_tojson = storage.get("State", add_state.id).to_json()
     return (jsonify(state_tojson))
+
 
 @app_views.route('/states/<states_id>/', methods=["PUT"], strict_slashes=False)
 def put_states(states_id):
@@ -64,7 +67,9 @@ def put_states(states_id):
     state_tojson = state.to_json()
     return (jsonify(state_tojson), 200)
 
-@app_views.route('/states/<states_id>/', methods=["DELETE"], strict_slashes=False)
+
+@app_views.route('/states/<states_id>/', methods=["DELETE"],
+                 strict_slashes=False)
 def delete_states(states_id):
     """
     Deletes states

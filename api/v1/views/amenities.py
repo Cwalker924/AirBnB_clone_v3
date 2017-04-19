@@ -30,6 +30,7 @@ def get_amenities():
     except:
         abort(404)
 
+
 @app_views.route('/amenities/<amenity_id>/', methods=["POST"])
 def post_amenity():
     """
@@ -44,6 +45,7 @@ def post_amenity():
         return (jsonify(add_amenity.to_json()), 201)
     except:
         return ("Not a json", 400)
+
 
 @app_views.route('/amenities/<amenity_id>/', methods=["PUT"])
 def put_amenity(amenity_id):
@@ -63,6 +65,7 @@ def put_amenity(amenity_id):
         return (jsonify(amenity_json), 200)
     except:
         abort(404)
+
 
 @app_views.route('/amenities/<amenity_id>/', methods=["DELETE"])
 def delete_amenity(amenity_id):
