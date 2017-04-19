@@ -15,10 +15,10 @@ class Test_FileStorage(unittest.TestCase):
     def setUp(self):
         self.store = FileStorage()
 
-        test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
+        test_args = {'name': 'goof', 'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
-        self.model = BaseModel(test_args)
+        self.model = Amenity(test_args)
 
         self.test_len = len(self.store.all())
 
@@ -63,6 +63,20 @@ class Test_FileStorage(unittest.TestCase):
     def test_state(self):
         """test State creation with an argument"""
         pass
+
+    def test_get(self):
+        """
+        test object retrieval
+        """
+        self.model.save()
+        my_list = ["name", "id", "created_at", "updated_at"]
+        a = self.store.get("Amenity", "f519fb40-1f5c-458b-945c-2ee8eaaf4900")
+        for item in my_list:
+            self.assertIsNotNone(getattr(a, item, None))
+        self.assertIsNone(getattr(a, "blop", None))
+
+        b = self.store.get(None, "invalid-id")
+        self.assertIs(None, b)
 
 if __name__ == "__main__":
     import sys
