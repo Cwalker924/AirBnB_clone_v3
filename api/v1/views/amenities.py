@@ -57,8 +57,8 @@ def put_amenity(amenity_id):
         abort(404)
     try:
         r = request.get_json()
-        for k != "id" or k != "created_id" or k != "updated_at":
-            if k not in list_amenity:
+        for k, v in r.items():
+            if k != "id" and k != "created_id" and k != "updated_at":
                 setattr(get_amenity, k, v)
         get_amenity.save()
         amenity_json = get_amenity.to_json()
