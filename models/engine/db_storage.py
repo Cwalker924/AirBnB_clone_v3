@@ -69,6 +69,7 @@ class DBStorage:
         """
         if obj is not None:
             self.__session.delete(obj)
+            self.save()
 
     def reload(self):
         """
@@ -76,10 +77,29 @@ class DBStorage:
         be in the init method
         """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine))
+        self.__session = scoped_session(sessionmaker(bind=self.__engine,
+                                                     expire_on_commit=False))
 
     def close(self):
         """
         close a session
         """
         self.__session.remove()
+
+    def get(self, cls, id):
+        """
+        retrieves one object
+        """
+        for i in self.__session.query(self.__models_available[cls]):
+            if i.__dict__["id"] == id:
+                return (i)
+        return (None)
+
+    def count(self, cls=None):
+        """
+        counts the number of objects in storage
+        """
+        if cls is None:
+            return (len(self.all()))
+        else:
+            return (self.__session.query(self.__models_available[cls]).count())
