@@ -72,9 +72,7 @@ class Test_FileStorage(unittest.TestCase):
         my_list = ["name", "id", "created_at", "updated_at"]
         a = self.store.get("Amenity", "f519fb40-1f5c-458b-945c-2ee8eaaf4900")
         for item in my_list:
-            self.assertIsNotNone(getattr(a, item, None))
-        self.assertIsNone(getattr(a, "blop", None))
-
+            self.assertIn(items, my_list
         b = self.store.get(None, "invalid-id")
         self.assertIs(None, b)
 
