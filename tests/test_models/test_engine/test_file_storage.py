@@ -13,6 +13,9 @@ class Test_FileStorage(unittest.TestCase):
     """
 
     def setUp(self):
+        """
+        Set up test method
+        """
         self.store = FileStorage()
 
         test_args = {'name': 'goof', 'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
@@ -29,9 +32,15 @@ class Test_FileStorage(unittest.TestCase):
 #            os.remove('test_file.json')
 
     def test_all(self):
+        """
+        Test all method
+        """
         self.assertEqual(len(self.store.all()), self.test_len)
 
     def test_new(self):
+        """
+        Test new method
+        """
         # note: we cannot assume order of test is order written
         test_len = len(self.store.all())
         # self.assertEqual(len(self.store.all()), self.test_len)
@@ -43,6 +52,9 @@ class Test_FileStorage(unittest.TestCase):
         self.assertEqual(len(self.store.all()), self.test_len + 2)
 
     def test_save(self):
+        """
+        Test save method
+        """
         self.test_len = len(self.store.all())
         a = BaseModel()
         a.save()
@@ -53,6 +65,9 @@ class Test_FileStorage(unittest.TestCase):
         self.assertEqual(len(self.store.all()), self.test_len + 2)
 
     def test_reload(self):
+        """
+        Test reload method
+        """
         self.model.save()
         a = BaseModel()
         a.save()
@@ -66,7 +81,7 @@ class Test_FileStorage(unittest.TestCase):
 
     def test_get(self):
         """
-        test object retrieval
+        Test get object retrieval
         """
         self.model.save()
         my_list = ["name", "id", "created_at", "updated_at"]
@@ -78,7 +93,7 @@ class Test_FileStorage(unittest.TestCase):
 
     def test_count(self):
         """
-        test counting of objects
+        Test counting of objects
         """
         length = len(self.store.all())
         a = Amenity(name="amenity_test")

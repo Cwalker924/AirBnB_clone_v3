@@ -30,10 +30,16 @@ class Test_DBStorage(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        """
+        Test teardown method
+        """
         cls.store._DBStorage__session.close()
         storage.reload()
 
     def test_all(self):
+        """
+        Test all method
+        """
         l1 = len(storage.all('State'))
         state = State(name = "State test all")
         state.save()
@@ -43,6 +49,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(state)
 
     def test_new(self):
+        """
+        Test new method
+        """
         # note: we cannot assume order of test is order written
         self.test_len = len(self.store.all())
         # self.assertEqual(len(self.store.all()), self.test_len)
@@ -58,6 +67,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(a)
 
     def test_save(self):
+        """
+        Test save method
+        """
         test_len = len(self.store.all())
         a = Amenity(name="another")
         a.save()
@@ -73,6 +85,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(b)
 
     def test_reload(self):
+        """
+        Test reload method
+        """
         self.model.save()
         a = Amenity(name="different")
         a.save()
@@ -82,6 +97,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(a)
 
     def test_get(self):
+        """
+        Test get object retrieval
+        """
         a = self.get(self.model, cls="Amenity", id="1234")
         self.assertIs(type(a), dict)
         b = self.get(self.model, cls=None, id="1234")
@@ -91,10 +109,14 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(b)
 
     def test_count(self):
+        """
+        Test count method
+        """
         a = self.count(cls="Amenity")
         self.assertEqual(len(self.store.all("Amenity")), a)
         b = self.count(cls=None)
         self.assertEqual(len(self.store.all()), b)
+
         storage.delete(a)
         storage.delete(b)
 
