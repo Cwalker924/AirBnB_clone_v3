@@ -76,6 +76,15 @@ class Test_FileStorage(unittest.TestCase):
         b = self.store.get(None, "invalid-id")
         self.assertIs(None, b)
 
+    def test_count(self):
+        """
+        test counting of objects
+        """
+        length = len(self.store.all())
+        a = Amenity(name="amenity_test")
+        a.save()
+        self.assertEqual(amenity_test + 1, self.store.count("Amenity"))
+
 if __name__ == "__main__":
     import sys
     import os
