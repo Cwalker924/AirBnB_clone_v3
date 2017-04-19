@@ -41,7 +41,7 @@ class Test_DBStorage(unittest.TestCase):
         Test all method
         """
         l1 = len(storage.all('State'))
-        state = State(name = "State test all")
+        state = State(name="State test all")
         state.save()
         output = storage.all('State')
         self.assertEqual(len(output), l1 + 1)

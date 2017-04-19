@@ -18,7 +18,8 @@ class Test_FileStorage(unittest.TestCase):
         """
         self.store = FileStorage()
 
-        test_args = {'name': 'goof', 'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
+        test_args = {'name': 'goof',
+                     'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
         self.model = Amenity(test_args)
