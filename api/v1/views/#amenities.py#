@@ -18,7 +18,7 @@ def get_amenities():
     """"
     Retrieves all amenity or a specific amenity w/ id
     """
-    if amenity_id is None:
+
         all_amenity = storage.all("Amenity")
         list_amenity = []
         for k, v in all_amenity.items():
