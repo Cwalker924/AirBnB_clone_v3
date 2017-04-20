@@ -14,7 +14,7 @@ from models import storage
 @app_views.route('/amenities', methods=["GET"], strict_slashes=False)
 @app_views.route('/amenities/<amenity_id>/', methods=["GET"],
                  strict_slashes=False)
-def get_amenities():
+def get_amenities(amenity_id):
     """"
     Retrieves all amenity or a specific amenity w/ id
     """
@@ -33,7 +33,7 @@ def get_amenities():
 
 
 @app_views.route('/amenities/<amenity_id>/', methods=["POST"])
-def post_amenity():
+def post_amenity(amenity_id):
     """
     Post to amenity
     """

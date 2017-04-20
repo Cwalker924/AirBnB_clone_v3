@@ -12,16 +12,15 @@ from models import storage
 
 @app_views.route('/states/<state_id>/cities', methods=["GET"],
                  strict_slashes=False)
-def get_cities():
+def get_cities(state_id):
     """
     Retrieves all city obj from specific state
     """
-
     if state_id is None:
         abort(404)
     states = storage.get("State", state_id)
     if states is None:
-        abort(404)
+       return (abort(404))
 
     list_city = []
     cities = storage.all("City")
@@ -37,28 +36,30 @@ def get_city(cities_id):
     Retrieves specific city w/ id
     """
     if cities_id is None:
-        abort(404)
+        return (abort(404))
     city = storage.get("City", city_id)
     if city is None:
-        abort(404)
-    return (jsonify(city.to_json()))
+        return (abort(404))
+    else:
+        return (jsonify(city.to_json()))
 
 
 @app_views.route('/states/<states_id>/cities', methods=["POST"],
                  strict_slashes=False)
-def post_city():
+def post_city(states_id):
     """
     Post to city
     """
     r = request.get_json()
+    states = storage.get("State", state_id)
     if not r:
         return ("Not a JSON", 400)
     if r.get("name") is None:
         return ("Missing name", 400)
-    if storage.get("State", state_id) is None:
-        abort(404)
+    if states is None:
+        return (abort(404))
 
-    r["state_id"] = state_id
+    r["states_id"] = states_id
     add_city = City(r)
     storage.new(add_city)
     stroage.save()
@@ -74,7 +75,7 @@ def put_cities(cities_id):
     cities = storage.get("City", cities_id)
     r = request.get_json()
     if cities is None:
-        abort(404)
+        return (abort(404))
     if r is None:
         return ("Not a JSON", abort(400))
 
@@ -91,6 +92,7 @@ def delete_city(cities_id):
     """
     cities = storage.get("City", cities_id)
     if cities is None:
-        abort(404)
-    storage.delete(cities)
-    return (jsonify({}), 200)
+        return (abort(404))
+    else:
+        storage.delete(cities)
+        return (jsonify({}), 200)

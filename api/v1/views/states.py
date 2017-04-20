@@ -25,28 +25,28 @@ def get_state(states_id):
     """"
     Retrieves specific states w/ id
     """
-    if states_id is None:
-        abort(404)
-    state = storage.get("State", states_id)
-    if state is None:
-        abort(404)
-    return (jsonify(state.to_json()))
+    if (storage.get("State", states_id) is None):
+        return (abort(404))
+    else:
+        return (jsonify(storage.get("State", states_id).to_json()))
 
 
 @app_views.route('/states/<states_id>', methods=["POST"], strict_slashes=False)
-def post_states():
+def post_states(states_id):
     """
     Post to states
     """
     state = request.get_json()
     if not state:
         return ("Not a JSON", 400)
-    if state.get("name") is None:
+    elif state.get("name") is None:
         return (abort(400, "Missing name"))
-    add_state = State(state)
-    add_state.save()
-    state_tojson = storage.get("State", add_state.id).to_json()
-    return (jsonify(state_tojson))
+    else:
+        add_state = State(name=state['name'])
+        storage.new(add_state)
+        state_tojson = storage.get("State", add_state.id).to_json()
+        add_state.save()
+        return (jsonify(state_tojson))
 
 
 @app_views.route('/states/<states_id>/', methods=["PUT"], strict_slashes=False)
