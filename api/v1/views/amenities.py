@@ -29,7 +29,7 @@ def get_amenities(amenity_id):
         id_amenity = storage.get("Amenity", amenity_id)
         return jsonify(id_amenity)
     except:
-        abort(404)
+        return (abort(404))
 
 
 @app_views.route('/amenities/<amenity_id>/', methods=["POST"])
@@ -55,7 +55,7 @@ def put_amenity(amenity_id):
     """
     get_amenity = storage.get("Amenity", amenity_id)
     if get_amenity is None:
-        abort(404)
+        return (abort(404))
     try:
         r = request.get_json()
         for k, v in r.items():
@@ -65,7 +65,7 @@ def put_amenity(amenity_id):
         amenity_json = get_amenity.to_json()
         return (jsonify(amenity_json), 200)
     except:
-        abort(404)
+        return (abort(404))
 
 
 @app_views.route('/amenities/<amenity_id>/', methods=["DELETE"])
@@ -75,10 +75,10 @@ def delete_amenity(amenity_id):
     """
     del_aminity = storage.get("Amenity", amenity_id)
     if del_aminity is None:
-        abort(404)
+        return (abort(404))
     try:
         storage.delete(del_aminity)
         storage.save()
         return (jsonify({}), 200)
     except:
-        abort(404)
+        return (abort(404))
