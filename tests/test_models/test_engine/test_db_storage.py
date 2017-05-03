@@ -16,7 +16,9 @@ class Test_DBStorage(unittest.TestCase):
     """
     @classmethod
     def setUpClass(cls):
-        """create a session"""
+        """
+        Create a session
+        """
         # close previous connexion to same database
         storage._DBStorage__session.close()
         cls.store = DBStorage()
